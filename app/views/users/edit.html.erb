@@ -1,0 +1,21 @@
+<h1>Editing User</h1>
+<%= form_for @user, url: user_path, method: :put do |f| %>
+<span> Account: <%= @user.name %></span>
+<br />
+<table class="table table-striped">
+	<tr>
+		<th>Role Name</th>
+		<th>#{check_box_tag 'main', 0, false}</th>
+	</tr>
+	<% @roles.each do |role| %>
+	<tr>
+		<td><%= role.name %></td>
+		<td><%= check_box_tag 'roles[]', role.id, @user_roles.include?(role.id), {array: true, class: "check_box"}%></td>
+	</tr>
+	<% end %>
+</table>
+<%= f.submit "Update", class: 'btn btn-primary'%>
+
+<% end %>
+<%= link_to 'Show', @user %> |
+<%= link_to 'Back', users_path %>

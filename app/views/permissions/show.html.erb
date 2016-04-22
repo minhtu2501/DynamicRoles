@@ -1,0 +1,11 @@
+<p>
+  <strong>Subject Class:</strong>
+  <%= @permission.subject_class %>
+</p>
+<p>
+  <strong>Action:</strong>
+  <%= @permission.action %>
+</p>
+
+<%= link_to 'Edit', edit_permission_path(@permission) %> |
+<%= link_to 'Back', permissions_path %>

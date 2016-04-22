@@ -1,0 +1,29 @@
+<nav id="nav">
+	<div id="page_nav">
+		<%= link_to "Home", root_path %>
+
+		<%= link_to "Part", parts_path %>
+
+		<%= link_to "Drawing", drawings_path %>
+		
+		<%= link_to "Role", roles_path %>
+
+		<%= link_to "Permission", permissions_path %>
+
+		<%= link_to "User", users_path %>
+	</div>
+
+	<div id="sign_in">
+	<% if user_signed_in? %>
+		<%= link_to "Edit profile", edit_user_registration_path %>
+		<%= link_to current_user.name, current_user %>
+		<% current_user.roles.each do |r| %>
+		<span style="color: white"><%= r.name %> | </span>
+		<% end %>
+		<%= link_to "Sign Out", destroy_user_session_path, method: :delete %>
+	<% else %>
+		<%= link_to "Sign In", new_user_session_path %>
+		<%= link_to "Sign Up", new_user_registration_path %>
+	<% end %>
+	</div>
+</nav>

@@ -1,0 +1,25 @@
+<h1>Editing Role</h1>
+<%= form_for @role, url: role_path, method: :put do |f| %>
+<span><%= @role.name %></span>
+<br />
+<p>Permissions</p>
+<br />
+<table class="table table-striped">
+	<tr>
+		<th>Class</th>
+		<th>Action</th>
+		<th>#{check_box_tag 'main', 0, false}</th>
+	</tr>
+	<% @permissions.each do |permission| %>
+	<tr>
+		<td><%= permission.subject_class %></td>
+		<td><%= permission.action %></td>
+		<td><%= check_box_tag 'permissions[]', permission.id, @role_permissions.include?(permission.id), {array: true, class: "check_box"}%></td>
+	</tr>
+	<% end %>
+</table>
+<%= f.submit "Update", class: 'btn btn-primary'%>
+
+<% end %>
+<%= link_to 'Show', @role %> |
+<%= link_to 'Back', roles_path %>

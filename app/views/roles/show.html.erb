@@ -1,0 +1,21 @@
+<p>
+  <strong>Name:</strong>
+  <%= @role.name %>
+</p>
+
+Permissions
+<table class="table table-striped">
+	<tr>
+		<th>Subject Class</th>
+		<th>Action</th>
+	</tr>
+	<% @permissions.each do |permission|%>
+	<tr>
+		<td><%= permission.subject_class %></td>
+		<td><%= permission.action %></td>
+	</tr>
+	<% end %>
+</table>
+
+<%= link_to 'Edit', edit_role_path(@role) %> |
+<%= link_to 'Back', roles_path %>

@@ -1,0 +1,12 @@
+<p>
+  <strong>Sheet number:</strong>
+  <%= @drawing.sheet_number %>
+</p>
+
+<p>
+  <strong>Part:</strong>
+  <%= @drawing.part_id %>
+</p>
+
+<%= link_to 'Edit', edit_drawing_path(@drawing) %> |
+<%= link_to 'Back', drawings_path %>
