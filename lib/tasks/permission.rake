@@ -35,7 +35,7 @@ def eval_cancan_action(action)
     cancan_action = action.to_s
     action_desc = "Other: " << cancan_action
   end
-  return name, cancan_action
+  return cancan_action
   
 end
 
