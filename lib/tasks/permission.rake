@@ -1,34 +1,14 @@
 namespace 'permissions' do
   desc "Loading all models and their methods in permissions table."
   task permissions: :environment do
-    arr = []
-    controllers = Dir.new("#{Rails.root}/app/controllers").entries
-    controllers.each do |entry|
-
-      if entry =~ /_controller/
-        arr << entry.camelize.gsub('.rb', '').constantize
-      elsif entry =~ /^[a-z]*$/
-        Dir.new("#{Rails.root}/app/controllers/#{entry}").entries.each do |x|
-        if x =~ /_controller/
-          arr << "#{entry.titleize}::#{x.camelize.gsub('.rb', '')}".constantize
-        end
-        end
+    Rails.application.eager_load!
+    ApplicationController.subclasses.each do |controller|
+      controller.instance_methods(false).each do |method|
+        unless controller.name == "DeviseController"
+          name, cancan_action = eval_cancan_action(method)
+          write_permission(controller.name, cancan_action, name) 
+        end 
       end
-    end
-
-    arr.each do |controller|
-
-
-      # if controller.permission #only those controller who represent a model
-
-      #   write_permission(controller.permission, "manage", 'manage') #add permission to do CRUD for every model.
-
-        controller.action_methods.each do |method|
-          if method =~ /^([A-Za-z\d*]+)+([\w]*)+([A-Za-z\d*]+)$/ #add_user, add_user_info, Add_user, add_User
-            name, cancan_action = eval_cancan_action(method)
-            write_permission(controller.name, cancan_action, name)  
-          end
-        end
     end
   end
 end
